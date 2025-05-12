@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 // Funcion para registrar usuario ->
-export const register = async (req, res) => {
+export const registerUser = async (req, res) => {
   const { email, password } = req.body;
   try {
     // se verifica si el usuario ya existe:
