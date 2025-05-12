@@ -125,7 +125,8 @@ http://localhost:4000/api-docs
 
 Ahí encontrarás toda la documentación de las rutas, parámetros, respuestas, errores, etc.
 
-📷 Captura de pantalla:
+>📷 preview:
+![N|Solid](https://raw.githubusercontent.com/RicardoMiguelR/URL-Shortener-API/refs/heads/main/assets/img/preview-docs.png)
 
 ---
 
