@@ -3,6 +3,7 @@ import {
   createShortUrl,
   redirectToOriginalUrl,
 } from "../controllers/urlController.js";
+import { getUserUrls } from "../controllers/getUrlsController.js";
 import { verifyToken } from "../middleware/authMiddleware.js";
 
 // importamos el router ->
@@ -44,6 +45,10 @@ const router = express.Router();
  *                  type: string
  *      400:
  *        description: Falta la URL original
+ *      401:
+ *        $ref: "#/components/responses/UnauthorizedError"
+ *      404:
+ *        $ref: "#/components/responses/NotFound"
  *      500:
  *        description: Error en el servidor
  */
@@ -71,5 +76,32 @@ router.post("/shorten", verifyToken, createShortUrl); // <- Ruta protegida: acor
  *         description: Error en el servidor
  */
 router.get("/:shortId", redirectToOriginalUrl); // <- Ruta publica: redirigir
+
+/**
+ * @swagger
+ * /api/url:
+ *   get:
+ *     summary: Obtener todas las URLs acortadas por el usuario
+ *     tags: [URL]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de URLs
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   originalUrl:
+ *                     type: string
+ *                   shortId:
+ *                     type: string
+ *                   shortUrl:
+ *                     type: string
+ */
+router.get("/", verifyToken, getUserUrls); // <- Ruta para obtener todos los urls acortados
 
 export default router;

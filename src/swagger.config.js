@@ -1,3 +1,5 @@
+import { application } from "express";
+
 export const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
@@ -6,6 +8,11 @@ export const swaggerOptions = {
       version: "1.0.0",
       description:
         "Una pequeña API que permite registrarse, loguearse y acortar URLs de forma autenticada",
+      contact: {
+        name: "Ricardo Miguel Raya",
+        github: "https://github.com/RicardoMiguelR",
+        email: "ricardomrlj@gmail.com",
+      },
     },
     servers: [
       {
@@ -18,6 +25,28 @@ export const swaggerOptions = {
           type: "http",
           scheme: "bearer",
           bearerFormat: "JWT",
+        },
+      },
+      responses: {
+        UnauthorizedError: {
+          description: "Token invalido o ausente",
+          content: {
+            "application/json": {
+              example: {
+                message: "Acceso denegado, token no proporcionado o invalido",
+              },
+            },
+          },
+        },
+        NotFound: {
+          description: "Recurso no encontrado",
+          content: {
+            "application/json": {
+              example: {
+                message: "URL no encontrada",
+              },
+            },
+          },
         },
       },
       schemas: {

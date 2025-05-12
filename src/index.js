@@ -27,7 +27,14 @@ app.use("/api/auth", authRoutes);
 app.use("/api/url", urlRoutes);
 
 // Documentacion de api con swagger ->
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs, {
+    customSiteTitle: "URL Shortener API - Documentación",
+    customCss: ".swagger-ui .topbar { display: none }",
+  })
+);
 
 app.get("/:shortId", redirectToOriginalUrl); // <- ruta para accedar al sitio original con url acortada
 
