@@ -6,8 +6,10 @@ import connectDB from "./config/db.js";
 import authRoutes from "./routes/auth.routes.js";
 import urlRoutes from "./routes/url.routes.js";
 import { redirectToOriginalUrl } from "./controllers/urlController.js";
-// import swaggerUi from "swagger-ui-express"; <- descomentar cuando sea necesario ***
-// import swaggerSpec from "../swagger.js"; <- descomentar cuando sea necesario ***
+import swaggerUi from "swagger-ui-express"; // <- swagger importaciones
+import swaggerJSDoc from "swagger-jsdoc"; // <- swagger importaciones
+import { swaggerOptions } from "./swagger.config.js"; // <- swagger importaciones (options)
+const specs = swaggerJSDoc(swaggerOptions); // <- swagger importaciones
 
 // Inicializar app express y dotenv ->
 dotenv.config();
@@ -22,9 +24,12 @@ connectDB();
 
 // Rutas ->
 app.use("/api/auth", authRoutes);
-app.use("/api/url", urlRoutes); //
+app.use("/api/url", urlRoutes);
+
+// Documentacion de api con swagger ->
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+
 app.get("/:shortId", redirectToOriginalUrl); // <- ruta para accedar al sitio original con url acortada
-// app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec)); <- descomentar cuando sea necesario ***
 
 // Levantamiento de servidor ->
 const PORT = process.env.PORT || 4000;
