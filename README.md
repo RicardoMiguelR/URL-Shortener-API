@@ -191,6 +191,8 @@ La API está desplegada en:
 Puedes acceder a la documentación completa de la API aquí:  
 📝 [https://url-shortener-api-x98v.onrender.com/api-docs](https://url-shortener-api-x98v.onrender.com/api-docs)
 
+>![N|Solid](https://raw.githubusercontent.com/RicardoMiguelR/URL-Shortener-API/refs/heads/main/assets/img/preview-docs.png)
+
 ---
 
 ### 📦 Rutas principales
