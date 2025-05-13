@@ -92,12 +92,14 @@ GET --- /:shortId --- Redirigir a la URL original --- ❌
 ---
 
 ### 📝 Codigo para actualizar el proyecto:
+
 ```bash
 git status
 git add .
 git commit -m "Mensaje del commit"
 git push origin <rama o sub-rama a la cual seran subidos los cambios>
 ```
+
 ---
 
 ### 🧪 Probar la API con Postman
@@ -118,15 +120,91 @@ Ejemplo de body:
 
 ---
 
-### 📚 Documentación completa (Swagger)
+### 📬 Colección de Postman
 
-Una vez el servidor está corriendo, visita:
-http://localhost:4000/api-docs
+Para facilitar el testeo de los endpoints, puedes importar esta colección de Postman:  
+👉 [Colección pública de Postman](https://www.postman.com/your-workspace/collections/your-collection-id)
 
-Ahí encontrarás toda la documentación de las rutas, parámetros, respuestas, errores, etc.
+> Incluye todas las rutas de autenticación, acortado de URLs y redirección, ya configuradas con variables y ejemplos.
 
->📷 preview:
-![N|Solid](https://raw.githubusercontent.com/RicardoMiguelR/URL-Shortener-API/refs/heads/main/assets/img/preview-docs.png)
+---
+
+### 🧪 Ejemplos de uso
+
+🔐 Login con `curl`
+
+```bash
+curl -X POST https://url-shortener-api-x98v.onrender.com/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "usuario@ejemplo.com",
+    "password": "tu_contraseña"
+  }'
+```
+
+---
+
+### 🔗 Acortar una URL con curl
+
+```bash
+curl -X POST https://url-shortener-api-x98v.onrender.com/api/url/shorten \
+  -H "Authorization: Bearer TU_TOKEN_JWT" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "originalUrl": "https://www.google.com"
+  }'
+```
+
+---
+
+### 📦 Acortar una URL con fetch en JavaScript
+
+```bash
+const shortenUrl = async () => {
+  const res = await fetch("https://url-shortener-api-x98v.onrender.com/api/url/shorten", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer TU_TOKEN_JWT",
+    },
+    body: JSON.stringify({ originalUrl: "https://www.google.com" }),
+  });
+
+  const data = await res.json();
+  console.log(data);
+};
+
+shortenUrl();
+```
+
+---
+
+### 🚀 API Deploy en Render
+
+La API está desplegada en:  
+🔗 [https://url-shortener-api-x98v.onrender.com](https://url-shortener-api-x98v.onrender.com)
+
+---
+
+### 📚 Documentación de API con Swagger
+
+Puedes acceder a la documentación completa de la API aquí:  
+📝 [https://url-shortener-api-x98v.onrender.com/api-docs](https://url-shortener-api-x98v.onrender.com/api-docs)
+
+---
+
+### 📦 Rutas principales
+
+🔐 Autenticación
+
+- `POST /api/auth/register` – Registra un nuevo usuario.
+- `POST /api/auth/login` – Inicia sesión y devuelve un token JWT.
+
+🔗 URLs
+
+- `POST /api/url/shorten` – Crea una URL acortada (requiere token).
+- `GET /:shortId` – Redirige a la URL original usando el shortId.
+- `GET /api/url` – Devuelve todas las URLs del usuario autenticado (requiere token).
 
 ---
 
